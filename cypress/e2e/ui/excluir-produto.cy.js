@@ -10,13 +10,7 @@ describe('Testes para Exclusão de Produto (UI)', () => {
   it('Cadastrar, listar e excluir produto via UI', () => {
     cy.geraDadosFakes().then((produto) => {
 
-      cy.get('[data-testid="cadastrarProdutos"]').click()
-      cy.get('[data-testid="nome"]').type(produto.nome)
-      cy.get('[data-testid="preco"]').type(produto.preco)
-      cy.get('[data-testid="descricao"]').type(produto.descricao)
-      cy.get('[data-testid="quantity"]').type(produto.quantidade)
-      cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/ibagem.png')
-      cy.get('[data-testid="cadastarProdutos"]').click()
+      cy.cadastraProduto(produto)
 
       cy.contains('tr', produto.nome).should('exist')
 

@@ -16,3 +16,13 @@ Cypress.Commands.add('geraDadosFakes', () => {
     quantidade: faker.number.int({ min: 10, max: 100 })
   }
 })
+
+Cypress.Commands.add('cadastraProduto', (produto) => {
+  cy.get('[data-testid="cadastrarProdutos"]').click()
+  cy.get('[data-testid="nome"]').type(produto.nome)
+  cy.get('[data-testid="preco"]').type(produto.preco)
+  cy.get('[data-testid="descricao"]').type(produto.descricao)
+  cy.get('[data-testid="quantity"]').type(produto.quantidade)
+  cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/ibagem.png')
+  cy.get('[data-testid="cadastarProdutos"]').click()
+})
