@@ -24,6 +24,9 @@ describe('Testes para Cadastro de Produtos', () => {
     cy.get('[data-testid="cadastarProdutos"]').click()
 
     cy.contains('Lista dos Produtos').should('be.visible')
-    cy.contains('tr', nomeProduto).should('exist')
+
+    cy.contains('tr', nomeProduto).should('contain', precoProduto)
+      .and('contain', descricaoProduto)
+      .and('contain', quantidadeProduto)
   })
 })
