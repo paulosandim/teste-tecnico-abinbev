@@ -13,7 +13,7 @@ describe('WEB', () => {
     cy.get('[data-testid="preco"]').type('5.00')
     cy.get('[data-testid="descricao"]').type('Cerveja 210 ml, leve e refrescante')
     cy.get('[data-testid="quantity"]').type('80')
-    cy.get('[data-testid="imagem"]').click()
+    cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/pack-coronita.png')
     cy.get('[data-testid="cadastarProdutos"]').click()
 
   })
