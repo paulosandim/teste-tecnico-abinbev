@@ -7,10 +7,9 @@ describe('Testes para Listagem de Produtos', () => {
     cy.login()
   })
 
-  it('Validar que o Produto cadastrado está na Lista de Produtos', () => {
+  it('Validar que a Lista dos Produtos está realizando a listagem', () => {
     cy.get('[data-testid="listarProdutos"]').click()
 
     cy.contains('Lista dos Produtos').should('be.visible')
-    // cy.contains('Pack Coronita').should('be.visible')
   })
 })
