@@ -14,9 +14,7 @@ describe('Testes para Cadastro de Produtos', () => {
 
       cy.contains('Lista dos Produtos').should('be.visible')
 
-      cy.contains('tr', produto.nome).should('contain', produto.preco)
-        .and('contain', produto.descricao)
-        .and('contain', produto.quantidade)
+      cy.validaDadosCadastrados(produto)
     })
   })
 })

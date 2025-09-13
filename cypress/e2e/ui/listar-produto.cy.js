@@ -12,15 +12,9 @@ describe('Testes para Listagem de Produtos', () => {
 
       cy.cadastraProduto(produto)
 
-      cy.contains('tr', produto.nome)
-        .should('exist')
-        .and('contain', produto.preco)
-        .and('contain', produto.descricao)
-        .and('contain', produto.quantidade)
+      cy.validaDadosCadastrados(produto)
 
-      cy.contains('tr', produto.nome)
-        .find('button.btn-danger')
-        .click()
+      cy.excluirProduto(produto)
 
       cy.get('body').should('not.contain', produto.nome)
     })

@@ -1,6 +1,6 @@
 const url = Cypress.env("FRONT_URL")
 
-describe('Testes para Exclusão de Produto (UI)', () => {
+describe('Testes para Exclusão de Produtos', () => {
 
   beforeEach(() => {
     cy.visit(`${url}/login`)
@@ -12,11 +12,9 @@ describe('Testes para Exclusão de Produto (UI)', () => {
 
       cy.cadastraProduto(produto)
 
-      cy.contains('tr', produto.nome).should('exist')
+      cy.validaDadosCadastrados(produto)
 
-      cy.contains('tr', produto.nome)
-        .find('button.btn-danger')
-        .click()
+      cy.excluirProduto(produto)
 
       cy.get('body').should('not.contain', produto.nome)
     })

@@ -26,3 +26,16 @@ Cypress.Commands.add('cadastraProduto', (produto) => {
   cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/ibagem.png')
   cy.get('[data-testid="cadastarProdutos"]').click()
 })
+
+Cypress.Commands.add('excluirProduto', (produto) => {
+  cy.contains('tr', produto.nome)
+    .find('button.btn-danger')
+    .click()
+})
+
+Cypress.Commands.add('validaDadosCadastrados', (produto) => {
+  cy.contains('tr', produto.nome)
+    .should('contain', produto.preco)
+    .and('contain', produto.descricao)
+    .and('contain', produto.quantidade)
+})
