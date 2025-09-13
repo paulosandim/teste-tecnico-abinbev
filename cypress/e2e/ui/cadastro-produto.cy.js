@@ -20,7 +20,7 @@ describe('Testes para Cadastro de Produtos', () => {
     cy.get('[data-testid="preco"]').type(precoProduto)
     cy.get('[data-testid="descricao"]').type(descricaoProduto)
     cy.get('[data-testid="quantity"]').type(quantidadeProduto)
-    cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/pack-coronita.png')
+    cy.get('[data-testid="imagem"]').selectFile('cypress/fixtures/ibagem.png')
     cy.get('[data-testid="cadastarProdutos"]').click()
 
     cy.contains('Lista dos Produtos').should('be.visible')
