@@ -14,9 +14,9 @@ describe('Testes Web para Exclusão de Produtos', () => {
 
       cy.validaDadosCadastrados(produto)
 
-      cy.excluirProduto(produto)
-
       cy.screenshot()
+
+      cy.excluirProduto(produto)
     })
   })
 })
