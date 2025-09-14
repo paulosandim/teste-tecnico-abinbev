@@ -1,4 +1,3 @@
-# .github/workflows/e2e.yml
 name: E2E Tests
 
 on:
@@ -9,9 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  cypress-e2e:
-    name: Run ${{ matrix.suite }} on ${{ matrix.browser }}
+  cypress:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -19,18 +18,21 @@ jobs:
         browser: [chrome]
 
     env:
-      CYPRESS_FRONT_URL: ${{ secrets.FRONT_URL }} # <- com prefixo CYPRESS_
-      CYPRESS_BACK_URL: ${{ secrets.BACK_URL }} # <- com prefixo CYPRESS_
+      # Secrets do repositório (Settings > Secrets > Actions)
+      CYPRESS_FRONT_URL: ${{ secrets.FRONT_URL }}
+      CYPRESS_API_URL: ${{ secrets.API_URL }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm ci
 
       - name: Run Cypress (${{ matrix.suite }})
