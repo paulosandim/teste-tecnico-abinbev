@@ -7,7 +7,7 @@ describe('Testes para Cadastro de Produtos', () => {
     cy.login()
   })
 
-  it('Valida o cadastro de um produto com sucesso', () => {
+  it('Validar o cadastro de um produto com sucesso', () => {
     cy.geraDadosFakes().then((produto) => {
 
       cy.cadastraProduto(produto)
