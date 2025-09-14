@@ -18,7 +18,7 @@ jobs:
         browser: [chrome]
 
     env:
-      # Secrets do repositório (Settings > Secrets > Actions)
+      # Essas envs chegam no Cypress como Cypress.env("FRONT_URL") / ("API_URL")
       CYPRESS_FRONT_URL: ${{ secrets.FRONT_URL }}
       CYPRESS_API_URL: ${{ secrets.API_URL }}
 
@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'npm' # requer package-lock.json no repo
 
       - name: Install deps
         run: npm ci
@@ -40,12 +40,7 @@ jobs:
         with:
           install: false
           browser: ${{ matrix.browser }}
-          command: |
-            if [ "${{ matrix.suite }}" = "web" ]; then
-              npm run test:web
-            else
-              npm run test:api
-            fi
+          command: npm run test:${{ matrix.suite }} # <-- sem if/fi
 
       - name: Upload screenshots
         if: always()
