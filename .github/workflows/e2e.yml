@@ -1,0 +1,67 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  cypress-e2e:
+    name: Run ${{ matrix.suite }} on ${{ matrix.browser }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [web, api]
+        browser: [electron]
+
+    env:
+      FRONT_URL: ${{ secrets.FRONT_URL }}
+      BACK_URL: ${{ secrets.BACK_URL }}
+      # se usar credenciais de login via fixture, você pode mover para env também
+      # CYPRESS_username: ${{ secrets.CYPRESS_USERNAME }}
+      # CYPRESS_password: ${{ secrets.CYPRESS_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress (${{ matrix.suite }})
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          browser: ${{ matrix.browser }}
+          command: |
+            if [ "${{ matrix.suite }}" = "web" ]; then
+              npm run test:web
+            else
+              npm run test:api
+            fi
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ matrix.suite }}
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: videos-${{ matrix.suite }}
+          path: cypress/videos
+          if-no-files-found: ignore
