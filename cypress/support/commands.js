@@ -54,7 +54,7 @@ Cypress.Commands.add('apiLogin', () => {
       body: { email: u.username, password: u.password },
     }).then((res) => {
       expect(res.status).to.eq(200)
-      // Serverest: token costuma vir em res.body.authorization
+
       const token = res.body.authorization
       expect(token, 'token de autorização').to.exist
       return cy.wrap(token).as('apiToken')
@@ -62,7 +62,6 @@ Cypress.Commands.add('apiLogin', () => {
   )
 })
 
-/** Gera payload válido de produto (para API) */
 Cypress.Commands.add('apiGeraProduto', () => {
   const produto = {
     nome: faker.commerce.productName(),

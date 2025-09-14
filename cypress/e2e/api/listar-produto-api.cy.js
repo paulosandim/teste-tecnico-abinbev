@@ -1,4 +1,4 @@
-describe('Testes API para Listagem de produtos', () => {
+describe('Testes API para Listagem de Produtos', () => {
   let idCriado
   let produto
 
