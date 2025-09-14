@@ -1,4 +1,14 @@
 {
+  "name": "abinbev-e2e-tests",
+  "version": "1.0.0",
+  "description": "Testes e2e automatizados com Cypress para ABInbev",
+  "scripts": {
+    "test": "cypress run --headless --browser chrome",
+    "test:ui": "cypress open",
+    "test:web": "cypress run --spec 'cypress/e2e/web/**/*.cy.js'",
+    "test:api": "cypress run --spec 'cypress/e2e/api/**/*.cy.js'",
+    "test:chrome": "cypress run --browser chrome"
+  },
   "devDependencies": {
     "cypress": "^15.2.0"
   },

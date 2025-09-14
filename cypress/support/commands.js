@@ -31,9 +31,12 @@ Cypress.Commands.add('excluirProduto', (produto) => {
   cy.contains('tr', produto.nome)
     .find('button.btn-danger')
     .click()
+  cy.get('body').should('not.contain', produto.nome)
 })
 
 Cypress.Commands.add('validaDadosCadastrados', (produto) => {
+  cy.contains('Lista dos Produtos').should('be.visible')
+
   cy.contains('tr', produto.nome)
     .should('contain', produto.preco)
     .and('contain', produto.descricao)

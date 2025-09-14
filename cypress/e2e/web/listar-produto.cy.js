@@ -15,8 +15,6 @@ describe('Testes para Listagem de Produtos', () => {
       cy.validaDadosCadastrados(produto)
 
       cy.excluirProduto(produto)
-
-      cy.get('body').should('not.contain', produto.nome)
     })
   })
 })

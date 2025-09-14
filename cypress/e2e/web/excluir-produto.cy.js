@@ -7,7 +7,7 @@ describe('Testes para Exclusão de Produtos', () => {
     cy.login()
   })
 
-  it('Cadastrar, listar e excluir produto via UI', () => {
+  it('Valida a exclusão de um produto com sucesso', () => {
     cy.geraDadosFakes().then((produto) => {
 
       cy.cadastraProduto(produto)
@@ -15,8 +15,6 @@ describe('Testes para Exclusão de Produtos', () => {
       cy.validaDadosCadastrados(produto)
 
       cy.excluirProduto(produto)
-
-      cy.get('body').should('not.contain', produto.nome)
     })
   })
 })
