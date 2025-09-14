@@ -1,7 +1,7 @@
-describe('API - Cadastro de produto', () => {
+describe('Testes API para Cadastro de Produtos', () => {
   before(() => cy.apiLogin())
 
-  it('deve cadastrar produto com sucesso', () => {
+  it('Validar o cadastro de um produto com sucesso na API', () => {
     cy.apiGeraProduto().then((produto) => {
       cy.apiCriarProduto(produto).then(({ id }) => {
         expect(id).to.exist

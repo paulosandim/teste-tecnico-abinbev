@@ -1,6 +1,6 @@
 const url = Cypress.env("FRONT_URL")
 
-describe('Testes para Exclusão de Produtos', () => {
+describe('Testes Web para Exclusão de Produtos', () => {
 
   beforeEach(() => {
     cy.visit(`${url}/login`)

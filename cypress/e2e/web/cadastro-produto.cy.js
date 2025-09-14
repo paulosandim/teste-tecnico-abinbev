@@ -1,6 +1,6 @@
 const url = Cypress.env("FRONT_URL")
 
-describe('Testes para Cadastro de Produtos', () => {
+describe('Testes Web para Cadastro de Produtos', () => {
 
   beforeEach(() => {
     cy.visit(`${url}/login`)
