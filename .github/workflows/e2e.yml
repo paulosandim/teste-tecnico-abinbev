@@ -14,11 +14,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [web, api]
-        browser: [chrome]
+        include:
+          - suite: web
+            browser: chrome
+            spec: 'cypress/e2e/web/**/*.cy.js'
+            results: 'allure-results-web'
+            report: 'allure-report-web'
+          - suite: api
+            browser: chrome
+            spec: 'cypress/e2e/api/**/*.cy.js'
+            results: 'allure-results-api'
+            report: 'allure-report-api'
 
     env:
-      # Essas envs chegam no Cypress como Cypress.env("FRONT_URL") / ("API_URL")
+      # Envs que viram Cypress.env("FRONT_URL") e Cypress.env("API_URL")
       CYPRESS_FRONT_URL: ${{ secrets.FRONT_URL }}
       CYPRESS_API_URL: ${{ secrets.API_URL }}
 
@@ -30,30 +39,50 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # requer package-lock.json no repo
+          cache: 'npm' # requer package-lock.json commitado
 
-      - name: Install deps
+      - name: Setup Java (Allure)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
         run: npm ci
 
+      # Executa Cypress com Allure habilitado e resultados por suite
       - name: Run Cypress (${{ matrix.suite }})
         uses: cypress-io/github-action@v6
         with:
           install: false
           browser: ${{ matrix.browser }}
-          command: npm run test:${{ matrix.suite }} # <-- sem if/fi
+          command: npx cypress run --spec '${{ matrix.spec }}' --env allure=true,allureResultsPath=${{ matrix.results }}
 
+      # Gera o relatório Allure para a suite atual
+      - name: Generate Allure report (${{ matrix.suite }})
+        run: npx allure generate -c ${{ matrix.results }} -o ${{ matrix.report }}
+
+      # Artefatos Allure (results + report HTML)
+      - name: Upload Allure results (${{ matrix.suite }})
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.results }}
+          path: ${{ matrix.results }}
+          if-no-files-found: warn
+
+      - name: Upload Allure report (${{ matrix.suite }})
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.report }}
+          path: ${{ matrix.report }}
+          if-no-files-found: warn
+
+      # Artefatos Cypress padrão
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots-${{ matrix.suite }}
-          path: cypress/screenshots
-          if-no-files-found: ignore
-
-      - name: Upload videos
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: videos-${{ matrix.suite }}
-          path: cypress/videos
-          if-no-files-found: ignore
+          path: cypress/screenshot

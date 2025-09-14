@@ -7,7 +7,7 @@ describe('Testes Web para Exclusão de Produtos', () => {
     cy.login()
   })
 
-  it('Valida a exclusão de um produto com sucesso', () => {
+  it('Validar a exclusão de um produto com sucesso', () => {
     cy.geraDadosFakes().then((produto) => {
 
       cy.cadastraProduto(produto)

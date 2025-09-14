@@ -1,11 +1,17 @@
-const { defineConfig } = require("cypress");
+import { allureCypress } from "allure-cypress/reporter";
+
+const { defineConfig } = require("cypress")
+
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
+      return config;
     },
-     env: {
+    env: {
       FRONT_URL: "https://front.serverest.dev",
       API_URL: "https://serverest.dev"
     },

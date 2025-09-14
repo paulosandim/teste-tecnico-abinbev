@@ -11,7 +11,7 @@ describe('Testes API para Cadastro de Produtos', () => {
           expect(texto).to.contain(produto.nome)
         })
 
-        // cy.apiExcluirProduto(id)
+        cy.apiExcluirProduto(id)
       })
     })
   })

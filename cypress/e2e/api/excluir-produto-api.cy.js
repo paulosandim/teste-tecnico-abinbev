@@ -4,13 +4,13 @@ describe('Testes API para Exclusão de Produtos', () => {
 
   before(() => cy.apiLogin())
 
-  it('deve excluir o produto com sucesso', () => {
+  it('Validar a exclusão de um produto com sucesso na API', () => {
     cy.apiGeraProduto().then((p) => {
       produto = p
       cy.apiCriarProduto(produto).then(({ id }) => {
         idCriado = id
         cy.apiExcluirProduto(idCriado).then(() => {
-          // confirma ausência (checagem simples)
+          // confirma ausência simples
           cy.apiListarProdutos().then((lista) => {
             const texto = JSON.stringify(lista)
             expect(texto).not.to.contain(produto.nome)
