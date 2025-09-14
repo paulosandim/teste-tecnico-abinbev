@@ -1,3 +1,4 @@
+# .github/workflows/e2e.yml
 name: E2E Tests
 
 on:
@@ -11,26 +12,20 @@ jobs:
   cypress-e2e:
     name: Run ${{ matrix.suite }} on ${{ matrix.browser }}
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
         suite: [web, api]
-        browser: [electron]
+        browser: [chrome]
 
     env:
-      FRONT_URL: ${{ secrets.FRONT_URL }}
-      BACK_URL: ${{ secrets.BACK_URL }}
-      # se usar credenciais de login via fixture, você pode mover para env também
-      # CYPRESS_username: ${{ secrets.CYPRESS_USERNAME }}
-      # CYPRESS_password: ${{ secrets.CYPRESS_PASSWORD }}
+      CYPRESS_FRONT_URL: ${{ secrets.FRONT_URL }} # <- com prefixo CYPRESS_
+      CYPRESS_BACK_URL: ${{ secrets.BACK_URL }} # <- com prefixo CYPRESS_
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
