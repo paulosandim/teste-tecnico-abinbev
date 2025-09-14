@@ -14,6 +14,8 @@ describe('Testes para Listagem de Produtos', () => {
 
       cy.validaDadosCadastrados(produto)
 
+      cy.screenshot()
+
       cy.excluirProduto(produto)
     })
   })

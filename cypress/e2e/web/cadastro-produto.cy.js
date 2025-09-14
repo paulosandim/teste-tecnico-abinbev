@@ -13,6 +13,10 @@ describe('Testes Web para Cadastro de Produtos', () => {
       cy.cadastraProduto(produto)
 
       cy.validaDadosCadastrados(produto)
+
+      cy.screenshot()
+
+      cy.excluirProduto(produto)
     })
   })
 })
