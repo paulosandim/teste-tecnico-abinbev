@@ -62,6 +62,12 @@ npm test
 npm run test:ui
 ```
 
+**Allure Report:**
+
+```
+npm run allure:serve
+```
+
 ---
 
 ### Execução via GitHub Actions:
@@ -86,7 +92,7 @@ npm run test:ui
 - **Dados**: `cypress/support/factories/produtos.js` evita duplicação de _faker_ e facilita controlar variabilidade.
 - **Adaptação**: `cypress/support/commands.js` delega para as outras camadas sem alterar a interface dos comandos.
 
-### Dessa forma conseguimos:
+### Benefícios:
 
 - Se um **seletor** mudar, a alteração é feita em apenas um lugar (_Page_).
 - Se um **endpoint ou header** mudar, basta ajustar no _API Helper_.
@@ -102,10 +108,10 @@ npm run test:ui
 ### Observações:
 
 - Embora seja possível concentrar toda a lógica em `commands.js`, a divisão em camadas traz **maior manutenibilidade, clareza e reuso** a longo prazo.
-- Um dos critérios de avaliação do Teste Técnico era **"Aplicação de padrões de projeto"**.
+- E também era um dos critérios de avaliação do Teste Técnico a **"Aplicação de padrões de projeto"**.
 
 ---
 
-## OBRIGADO!!
+### OBRIGADO
 
 ![meme-gato-inbev](img.png)
